@@ -476,11 +476,11 @@ skill_view('hr-intelligence-deep')    # 人力资源深度
 ## 定时任务配置
 
 ```python
-# 每周三/周五 9:00 执行周报
+# 每周五 9:00 执行周报
 cronjob(
     action='create',
     name='超聚变行业周报',
-    schedule='0 9 * * 3,5',
+    schedule='0 9 * * 5',
     prompt='执行 xfusion-intelligence 技能，生成本周行业情报报告，飞书推送精简版+邮件发送完整版',
     skills=['xfusion-intelligence']
 )

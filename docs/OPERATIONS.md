@@ -136,14 +136,14 @@ python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
 
 ## 4. 配置定时任务
 
-### 4.1 周报定时（每周三/周五 9:00）
+### 4.1 周报定时（每周五 9:00）
 
 在 Hermes 对话中：
 
 ```
 创建一个 cron 任务：
 - 名称：超聚变行业周报
-- 时间：每周三和每周五早上9点
+- 时间：每周五早上9点
 - 任务：执行 xfusion-intelligence 技能
 - 推送：飞书 + 邮件
 ```
@@ -154,7 +154,7 @@ python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
 cronjob(
     action='create',
     name='超聚变行业周报',
-    schedule='0 9 * * 3,5',
+    schedule='0 9 * * 5',
     prompt='执行 xfusion-intelligence 技能，生成本周行业情报报告。飞书推送精简版，邮件发送完整报告。',
     skills=['xfusion-intelligence']
 )
