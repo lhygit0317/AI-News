@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -99,6 +100,41 @@ class EmailTemplateTests(unittest.TestCase):
         self.assertIn("2026-06-24 - 2026-07-01", html)
         self.assertIn("dynamic-report.md", html)
         self.assertNotIn("2026年6月20日 - 6月27日", html)
+
+    def test_email_cli_uses_smtp_port_from_environment(self):
+        push_email = load_script_module("push_email", "scripts/push-email.py")
+        captured = {}
+
+        def fake_send_email(smtp_host, smtp_port, smtp_user, smtp_pass,
+                            from_addr, to_addr, subject, html_body):
+            captured["smtp_port"] = smtp_port
+            return True
+
+        env = {
+            **os.environ,
+            "SMTP_HOST": "smtp.163.com",
+            "SMTP_PORT": "465",
+            "SMTP_USER": "sender@example.com",
+            "SMTP_PASS": "secret",
+            "EMAIL_FROM": "sender@example.com",
+            "EMAIL_TO": "receiver@example.com",
+        }
+        argv = [
+            "push-email.py",
+            "--report",
+            str(REPO_ROOT / "reports/2026-W26-xfusion-weekly.md"),
+            "--subject",
+            "端口测试",
+        ]
+
+        with patch.dict(os.environ, env, clear=True), \
+                patch.object(sys, "argv", argv), \
+                patch.object(push_email, "send_email", fake_send_email), \
+                self.assertRaises(SystemExit) as cm:
+            push_email.main()
+
+        self.assertEqual(cm.exception.code, 0)
+        self.assertEqual(captured["smtp_port"], 465)
 
 
 class DryRunCliTests(unittest.TestCase):

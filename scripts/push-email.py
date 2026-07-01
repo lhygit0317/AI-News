@@ -155,7 +155,7 @@ def main():
     parser.add_argument('--subject', required=True, help='邮件主题')
     parser.add_argument('--to', help='收件人地址')
     parser.add_argument('--smtp-host', help='SMTP 服务器')
-    parser.add_argument('--smtp-port', type=int, default=587, help='SMTP 端口')
+    parser.add_argument('--smtp-port', type=int, help='SMTP 端口')
     parser.add_argument('--smtp-user', help='SMTP 用户名')
     parser.add_argument('--smtp-pass', help='SMTP 密码')
     parser.add_argument('--dry-run', action='store_true', help='只生成邮件内容，不连接 SMTP 发送')
@@ -194,7 +194,7 @@ def main():
 
     # 获取配置
     smtp_host = args.smtp_host or os.environ.get('SMTP_HOST', '')
-    smtp_port = args.smtp_port or int(os.environ.get('SMTP_PORT', '587'))
+    smtp_port = args.smtp_port if args.smtp_port is not None else int(os.environ.get('SMTP_PORT', '587'))
     smtp_user = args.smtp_user or os.environ.get('SMTP_USER', '')
     smtp_pass = args.smtp_pass or os.environ.get('SMTP_PASS', '')
     from_addr = os.environ.get('EMAIL_FROM', smtp_user)
