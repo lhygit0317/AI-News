@@ -82,12 +82,23 @@ export EMAIL_TO="fangzhiheng@xfusion.com"
 ### 2.3 验证推送
 
 ```bash
-# 测试飞书
+# 本地预演飞书内容（不发送）
+python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-feishu.py \
+  --text "测试消息：超聚变情报系统已就绪" \
+  --dry-run
+
+# 测试飞书真实发送
 python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-feishu.py \
   --text "测试消息：超聚变情报系统已就绪" \
   --webhook "$FEISHU_WEBHOOK_URL"
 
-# 测试邮件
+# 本地预演邮件内容（不发送）
+python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
+  --report ~/.hermes/workspace/intelligence-reports/xfusion-weekly/latest-xfusion-weekly.md \
+  --subject "测试邮件" \
+  --dry-run
+
+# 测试邮件真实发送
 python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
   --report ~/.hermes/workspace/intelligence-reports/xfusion-weekly/latest-xfusion-weekly.md \
   --subject "测试邮件" \
@@ -125,14 +136,14 @@ python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
 
 ## 4. 配置定时任务
 
-### 4.1 周报定时（每周一 9:00）
+### 4.1 周报定时（每周三/周五 9:00）
 
 在 Hermes 对话中：
 
 ```
 创建一个 cron 任务：
 - 名称：超聚变行业周报
-- 时间：每周一早上9点
+- 时间：每周三和每周五早上9点
 - 任务：执行 xfusion-intelligence 技能
 - 推送：飞书 + 邮件
 ```
@@ -143,7 +154,7 @@ python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
 cronjob(
     action='create',
     name='超聚变行业周报',
-    schedule='0 9 * * 1',
+    schedule='0 9 * * 3,5',
     prompt='执行 xfusion-intelligence 技能，生成本周行业情报报告。飞书推送精简版，邮件发送完整报告。',
     skills=['xfusion-intelligence']
 )
@@ -227,11 +238,17 @@ ls -lt ~/.hermes/workspace/intelligence-reports/sub-domain/power-supply/
 # 从报告文件自动提取飞书摘要
 python3 scripts/push-feishu.py --file report.md
 
+# 预演飞书摘要，不发送
+python3 scripts/push-feishu.py --file report.md --dry-run
+
 # 直接推送自定义文本
 python3 scripts/push-feishu.py --text "紧急：华为Ascend新芯片发布"
 
 # 邮件推送
 python3 scripts/push-email.py --report report.md --subject "主题" --to "xxx@xfusion.com"
+
+# 预演邮件HTML，不发送
+python3 scripts/push-email.py --report report.md --subject "主题" --dry-run
 ```
 
 ---

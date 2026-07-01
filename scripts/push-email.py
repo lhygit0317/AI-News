@@ -4,6 +4,7 @@
 
 使用方法:
   python3 push-email.py --report report.md --subject "超聚变行业周报 06.20-06.27" --to "xxx@xfusion.com"
+  python3 push-email.py --report report.md --subject "测试邮件" --dry-run  # 只预览，不发送
 
 环境变量:
   SMTP_HOST: SMTP 服务器地址
@@ -157,24 +158,9 @@ def main():
     parser.add_argument('--smtp-port', type=int, default=587, help='SMTP 端口')
     parser.add_argument('--smtp-user', help='SMTP 用户名')
     parser.add_argument('--smtp-pass', help='SMTP 密码')
+    parser.add_argument('--dry-run', action='store_true', help='只生成邮件内容，不连接 SMTP 发送')
     args = parser.parse_args()
-    
-    # 获取配置
-    smtp_host = args.smtp_host or os.environ.get('SMTP_HOST', '')
-    smtp_port = args.smtp_port or int(os.environ.get('SMTP_PORT', '587'))
-    smtp_user = args.smtp_user or os.environ.get('SMTP_USER', '')
-    smtp_pass = args.smtp_pass or os.environ.get('SMTP_PASS', '')
-    from_addr = os.environ.get('EMAIL_FROM', smtp_user)
-    to_addr = args.to or os.environ.get('EMAIL_TO', '')
-    
-    if not smtp_host or not smtp_user or not smtp_pass:
-        print("[ERROR] SMTP 配置不完整。请设置环境变量: SMTP_HOST, SMTP_USER, SMTP_PASS")
-        sys.exit(1)
-    
-    if not to_addr:
-        print("[ERROR] 未指定收件人。请使用 --to 参数或设置 EMAIL_TO 环境变量。")
-        sys.exit(1)
-    
+
     # 读取报告
     report_path = Path(args.report)
     if not report_path.exists():
@@ -198,8 +184,29 @@ def main():
     
     # 发送
     print(f"发送邮件: {args.subject}")
-    print(f"  收件人: {to_addr}")
+    print(f"  收件人: {args.to or os.environ.get('EMAIL_TO', '(dry-run未指定)')}")
     print(f"  报告: {report_path.name}")
+
+    if args.dry_run:
+        print(f"  HTML长度: {len(full_html)} 字符")
+        print("[DRY-RUN] 邮件内容已生成，未连接 SMTP 发送。")
+        sys.exit(0)
+
+    # 获取配置
+    smtp_host = args.smtp_host or os.environ.get('SMTP_HOST', '')
+    smtp_port = args.smtp_port or int(os.environ.get('SMTP_PORT', '587'))
+    smtp_user = args.smtp_user or os.environ.get('SMTP_USER', '')
+    smtp_pass = args.smtp_pass or os.environ.get('SMTP_PASS', '')
+    from_addr = os.environ.get('EMAIL_FROM', smtp_user)
+    to_addr = args.to or os.environ.get('EMAIL_TO', '')
+
+    if not smtp_host or not smtp_user or not smtp_pass:
+        print("[ERROR] SMTP 配置不完整。请设置环境变量: SMTP_HOST, SMTP_USER, SMTP_PASS")
+        sys.exit(1)
+
+    if not to_addr:
+        print("[ERROR] 未指定收件人。请使用 --to 参数或设置 EMAIL_TO 环境变量。")
+        sys.exit(1)
     
     success = send_email(smtp_host, smtp_port, smtp_user, smtp_pass,
                          from_addr, to_addr, args.subject, full_html)

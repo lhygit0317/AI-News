@@ -11,6 +11,7 @@ FEISHU_WEBHOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/YOUR_WEBHOOK_KE
 - **字数限制**: 200字以内（含标点）
 - **格式**: 纯文本 + 链接
 - **包含**: 5大方向各1-2条核心 + 本周结论 + 完整报告链接
+- **预演**: `python3 scripts/push-feishu.py --file report.md --dry-run`
 
 ### 模板
 ```
@@ -47,6 +48,7 @@ EMAIL_TO="fangzhiheng@xfusion.com"
 - Gmail/企业邮箱需要应用专用密码
 - HTML邮件需清除emoji（不支持彩色emoji）
 - 飞书和邮件推送可独立开关
+- 本地验证可先运行 `python3 scripts/push-email.py --report report.md --subject "测试" --dry-run`
 
 ---
 

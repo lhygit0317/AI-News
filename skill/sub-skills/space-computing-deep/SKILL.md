@@ -1,87 +1,74 @@
 ---
-name: ai-software-deep
+name: space-computing-deep
 category: research
-description: AI软件与解决方案深度情报 — 覆盖大模型(7家)和基础设施方案(8家)，可独立触发或为主控提供摘要
-trigger: "AI软件深度 | AI模型动态 | AI基础设施方案 | 大模型情报 | AI解决方案情报"
+description: 太空算力深度情报 — 覆盖LEO卫星计算、星载AI推理、轨道数据中心、抗辐射芯片和星地协同计算
+trigger: "太空算力深度 | 星载AI | 轨道数据中心 | LEO卫星计算 | 太空边缘计算"
 ---
 
-# AI软件与解决方案深度情报
+# 太空算力深度情报
 
-## 子方向一：AI大模型（7家）
+## 监控方向
 
-| 企业/产品 | 关注点 | 影响xFusion的逻辑 |
-|-----------|--------|-----------------|
-| MiniMax | 多模态、企业级API、融资动态 | 国产大模型扩张→算力需求↑ |
-| 智谱 (Zhipu) | GLM系列、政企合作、开源 | 国产替代加速→FusionServer AI适配机会 |
-| Anthropic | Claude系列、安全对齐 | 国际模型竞争→全球AI服务器市场 |
-| OpenAI | GPT系列、API定价、企业方案 | 算力需求风向标 |
-| Google DeepMind | Gemini、TPU | 自研芯片趋势→对通用服务器的影响 |
-| Qwen (阿里) | 通义系列、开源策略、云整合 | 开源模型降低门槛→中小企业算力需求↑ |
-| Kimi (月之暗面) | 长文本、国产创新 | 国产AI创新活力指标 |
+| 方向 | 关注点 | 对xFusion意义 |
+|------|--------|---------------|
+| LEO卫星计算 | 卫星边缘计算、星地协同、AWS/Azure太空服务 | 前瞻边缘算力场景 |
+| 星载AI推理 | 低功耗AI芯片、实时遥感处理、在轨推理 | 特种环境服务器技术延伸 |
+| 轨道数据中心 | 太空数据中心、在轨能源/散热、硬件回收 | 高功率密度和液冷技术参考 |
+| 抗辐射芯片 | Radiation-hardened CPU/GPU/AI accelerator | 高可靠硬件供应链趋势 |
+| 中国太空算力 | 中国星网、卫星互联网、商业航天计算载荷 | 国产化和政企场景机会 |
 
-### 模型层面搜索关键词
+## 搜索方向（并行搜索）
 
-```
-MiniMax AI model multimodal enterprise 202X
-Zhipu GLM ChatGLM enterprise government
-Anthropic Claude model API pricing
-OpenAI GPT enterprise strategy
-Google Gemini AI TPU
-Qwen Alibaba AI open source
-Kimi Moonshot long context funding
-```
+1. `AWS space edge computing satellite`
+2. `Azure Orbital satellite edge computing AI`
+3. `LEO satellite AI inference onboard computing`
+4. `radiation hardened AI chip space`
+5. `orbital data center space computing`
+6. `NASA ESA space data center computing`
+7. `中国星网 卫星 计算 太空 算力`
 
----
+## 搜索策略
 
-## 子方向二：AI基础设施方案（8家）
-
-| 企业 | 定位 | 竞争关系 | 关注点 |
-|------|------|---------|--------|
-| VMware (Broadcom) | 虚拟化/私有云 | 间接竞品 | vSphere AI、私有云方案 |
-| Nutanix | 超融合 | 间接竞品 | GPT-in-a-Box、AI就绪HCI |
-| 深信服 (Sangfor) | 安全+超融合 | 国内竞品 | AI安全、超融合方案 |
-| 华三 (H3C) | 网络+服务器 | 国内直接竞品 | AI服务器、网络方案 |
-| 浪潮 (Inspur) | AI服务器 | 国内头号竞品 | AI市场份额、新品发布 |
-| 华为 (Huawei) | 全栈方案 | 最大竞品+前身 | Ascend生态、AI集群 |
-| 百度 (Baidu) | 云+AI | 生态竞合 | 飞桨、百度智能云 |
-| 阿里 (Alibaba) | 云+AI | 生态竞合 | 通义+阿里云AI平台 |
-
-### 方案层面搜索关键词
+### 英文源优先
 
 ```
-VMware vSphere AI private cloud 2026
-Nutanix AI HCI GPT-in-a-Box
-Sangfor深信服 AI HCI security
-H3C 华三 AI server networking
-Inspur 浪潮 AI server solution
-Huawei Ascend AI cluster ecosystem
-Baidu PaddlePaddle AI cloud enterprise
-Alibaba Tongyi AI platform Aliyun
+Google News: LEO satellite edge computing AI
+Bing News: space edge computing satellite AI
+NASA/ESA: onboard AI computing satellite
+AWS/Azure: space cloud edge computing
 ```
 
----
+### 中文源补充
+
+```
+中国星网 卫星互联网 算力
+商业航天 星载AI 计算载荷
+遥感卫星 实时AI推理
+```
 
 ## 输出格式
 
-### AI大模型动态
-| 模型/厂商 | 关键事件 | 信号强度 | 算力需求影响 | 对xFusion影响 |
-|-----------|---------|---------|------------|--------------|
+### 核心信号
+| 信号 | 简述 | 来源/日期 | 对xFusion启示 |
+|------|------|----------|---------------|
 
-### AI方案动态
-| 企业 | 定位 | 关键事件 | 对xFusion竞争影响 | 影响方向 |
-|------|------|---------|-----------------|---------|
+### 技术成熟度判断
+| 方向 | 成熟度 | 近期可跟踪指标 |
+|------|--------|----------------|
+| 星载AI推理 | 概念验证/试点/规模化 | 任务载荷、功耗、客户 |
+| 轨道数据中心 | 概念/试验/商用 | 发射计划、散热、回收 |
+| 星地协同 | 试点/规模化 | 云服务商合作、地面站 |
 
-### 本周关键发现
-1. [AI模型方向最重要的1-2个发现]
-2. [AI方案方向最重要的1-2个发现]
-
----
+### 对xFusion的建议
+1. [短期跟踪建议]
+2. [中期技术储备建议]
+3. [不建议投入或需谨慎的方向]
 
 ## 与主控技能的关系
 
-- 为主控周报提供 🟢 AI模型 + 🟡 AI方案两个板块的摘要
-- 可独立触发生成深度报告
-- 深度报告路径：`sub-domain/ai-software/`
+- 为主控周报提供 🔴 太空算力板块摘要
+- 如本周无重大公开事件，输出“本周太空算力方向无重大信号”并列出持续跟踪指标
+- 深度报告路径：`sub-domain/space-computing/`
 
 ---
 
