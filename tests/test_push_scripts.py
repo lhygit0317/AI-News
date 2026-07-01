@@ -196,7 +196,7 @@ class SkillMetadataTests(unittest.TestCase):
 
 
 class DocumentationConsistencyTests(unittest.TestCase):
-    def test_weekly_schedule_is_consistently_friday_only(self):
+    def test_weekly_schedule_is_paused(self):
         checked_files = [
             REPO_ROOT / "docs/GETTING-STARTED.md",
             REPO_ROOT / "docs/OPERATIONS.md",
@@ -207,13 +207,16 @@ class DocumentationConsistencyTests(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             self.assertNotIn("schedule='0 9 * * 1'", text, path)
             self.assertNotIn("0 9 * * 3,5", text, path)
+            self.assertNotIn("0 9 * * 5", text, path)
             self.assertNotIn("每周一 9:00", text, path)
             self.assertNotIn("每周一早上9点", text, path)
             self.assertNotIn("每周三/周五", text, path)
             self.assertNotIn("每周三和每周五", text, path)
+            self.assertNotIn("cronjob(action='create'", text, path)
+            self.assertNotIn("cronjob(\n    action='create'", text, path)
 
         combined = "\n".join(path.read_text(encoding="utf-8") for path in checked_files)
-        self.assertIn("0 9 * * 5", combined)
+        self.assertIn("定时任务已暂停", combined)
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@
 1. [环境准备](#1-环境准备)
 2. [一次性配置](#2-一次性配置)
 3. [手动触发情报收集](#3-手动触发情报收集)
-4. [配置定时任务](#4-配置定时任务)
+4. [定时任务暂停状态](#4-定时任务暂停状态)
 5. [子领域深度报告](#5-子领域深度报告)
 6. [推送配置](#6-推送配置)
 7. [故障排查](#7-故障排查)
@@ -134,47 +134,21 @@ python3 ~/.hermes/skills/xfusion-intelligence/scripts/push-email.py \
 
 ---
 
-## 4. 配置定时任务
+## 4. 定时任务暂停状态
 
-### 4.1 周报定时（每周五 9:00）
+### 4.1 当前状态
 
-在 Hermes 对话中：
+定时任务已暂停。内容和格式调整完成前，不创建新的 `cronjob`，不自动发送飞书，也不自动发送邮件。
 
-```
-创建一个 cron 任务：
-- 名称：超聚变行业周报
-- 时间：每周五早上9点
-- 任务：执行 xfusion-intelligence 技能
-- 推送：飞书 + 邮件
-```
+如需检查是否存在误创建任务，在 Hermes 环境执行：
 
-或直接调用：
-
-```python
-cronjob(
-    action='create',
-    name='超聚变行业周报',
-    schedule='0 9 * * 5',
-    prompt='执行 xfusion-intelligence 技能，生成本周行业情报报告。飞书推送精简版，邮件发送完整报告。',
-    skills=['xfusion-intelligence']
-)
+```bash
+hermes cron list
 ```
 
 ### 4.2 子领域深度报告
 
-```python
-# 每月第1个周二：电源深度
-cronjob(action='create', name='电源行业月度深度',
-    schedule='0 10 1-7 * 2',
-    prompt='执行 power-supply-deep 技能，生成电源行业月度深度报告',
-    skills=['power-supply-deep'])
-
-# 每月第1个周三：液冷深度
-cronjob(action='create', name='液冷行业月度深度',
-    schedule='0 10 1-7 * 3',
-    prompt='执行 liquid-cooling-deep 技能',
-    skills=['liquid-cooling-deep'])
-```
+子领域深度报告也不创建定时任务。需要时在 Hermes 对话中手动触发对应子技能，并先检查输出内容和格式。
 
 ### 4.3 查看已配置任务
 
@@ -187,6 +161,8 @@ cronjob(action='create', name='液冷行业月度深度',
 ```
 立即执行「超聚变行业周报」任务
 ```
+
+当前暂停期间不建议执行该操作；如需测试，先手动生成报告并用 `--dry-run` 检查推送内容。
 
 ---
 

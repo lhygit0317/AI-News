@@ -475,24 +475,13 @@ skill_view('hr-intelligence-deep')    # 人力资源深度
 
 ## 定时任务配置
 
-```python
-# 每周五 9:00 执行周报
-cronjob(
-    action='create',
-    name='超聚变行业周报',
-    schedule='0 9 * * 5',
-    prompt='执行 xfusion-intelligence 技能，生成本周行业情报报告，飞书推送精简版+邮件发送完整版',
-    skills=['xfusion-intelligence']
-)
+**当前状态：定时任务已暂停。** 内容和格式调整完成前，不创建自动周报任务，不自动推送飞书或邮件。
 
-# 每月第1个周二：电源深度报告
-cronjob(
-    action='create',
-    name='电源行业月度深度',
-    schedule='0 10 1-7 * 2',
-    prompt='执行 power-supply-deep 技能，生成电源行业月度深度报告',
-    skills=['power-supply-deep']
-)
+```python
+# 暂停期间仅允许查看任务，不创建新任务
+cronjob(action='list')
+
+# 子领域深度报告也暂停定时创建，需要时手动触发对应子技能。
 ```
 
 ---
